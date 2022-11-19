@@ -33,6 +33,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency "aggregate_root", "~> 2.5.0"
   spec.add_dependency "ruby_event_store", "~> 2.5.0"
 
+  spec.add_development_dependency "byebug", "~> 11.1"
   spec.add_development_dependency "rspec", "~> 3.0"
+  spec.add_development_dependency "ruby_event_store-rspec", "~> 2.0"
   spec.add_development_dependency "standardrb", "~> 1.0"
 end
