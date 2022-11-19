@@ -2,14 +2,20 @@
 
 source "https://rubygems.org"
 
-gem "hanami", "~> 2.0.0.rc"
-gem "hanami-router", "~> 2.0.0.rc"
-gem "hanami-controller", "~> 2.0.0.rc"
-gem "hanami-validations", "~> 2.0.0.rc"
-
+gem "aggregate_root", "~> 2.5"
 gem "dry-types", "~> 1.0", ">= 1.6.1"
+gem "hanami", "~> 2.0.0.rc"
+gem "hanami-controller", "~> 2.0.0.rc"
+gem "hanami-router", "~> 2.0.0.rc"
+gem "hanami-validations", "~> 2.0.0.rc"
+gem "lets_meet-domain", path: "../lets_meet-domain"
+gem "pg"
 gem "puma"
 gem "rake"
+gem "rom", "~> 5.3"
+gem "rom-sql", "~> 3.6"
+gem "ruby_event_store", "~> 2.5"
+gem "ruby_event_store-rom", "~> 2.0", require: "ruby_event_store/rom/sql"
 
 group :development, :test do
   gem "dotenv"
@@ -20,6 +26,7 @@ group :cli, :development do
 end
 
 group :cli, :development, :test do
+  gem "byebug"
   gem "hanami-rspec"
 end
 
@@ -28,5 +35,8 @@ group :development do
 end
 
 group :test do
+  gem "database_cleaner-sequel"
+  gem "faker"
   gem "rack-test"
+  gem "ruby_event_store-rspec", "~> 2.5"
 end

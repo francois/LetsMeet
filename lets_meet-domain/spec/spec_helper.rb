@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
+require "byebug"
 require "lets_meet"
+require "ruby_event_store"
+require "ruby_event_store/rspec"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -11,5 +14,11 @@ RSpec.configure do |config|
 
   config.expect_with :rspec do |c|
     c.syntax = :expect
+  end
+
+  config.before(:each) do
+    LetsMeet.configure do |config|
+      config.event_store = RubyEventStore::Client.new(repository: RubyEventStore::InMemoryRepository.new(serializer: RubyEventStore::NULL))
+    end
   end
 end

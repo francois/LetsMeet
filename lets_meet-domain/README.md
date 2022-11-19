@@ -46,7 +46,7 @@ command = LetsMeet::RegisterEvent.new(
 command_bus.call(command)
 ```
 
-Fetch a domain object and execute operations against it:
+[Fetch a domain object](https://railseventstore.org/docs/v2/app/) and execute operations against it:
 
 ```ruby
 # Use the same event store as passed above in the LetsMeet.configure block
@@ -58,10 +58,12 @@ event = repository.load(LetsMeet::Event.new, "event$#{event_id}")
 # Call domain methods on the event:
 event.open_registrations
 event.cancel
+repository.store(event, "event$#{event_id}")
 
 # Same thing, but for an attendee instead:
 attendee_id = params[:attendee_id] # a UUID
 
 attendee = repository.load(LetsMeet::Attendee.new, "attendee$#{attendee_id}")
 attendee.register_for_event(event_id)
+repository.store(attendee, "attendee$#{attendee_id}")
 ```
