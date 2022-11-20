@@ -27,3 +27,11 @@ This repository is organized as a monorepo:
 # For Fun
 
 I am building this application for fun, not for profit. If it turns into a business in the future, fine, but at the moment, this is mostly a way for me to explore a different application domain and tooling. In particular, I am using [Sapling SCM](https://sapling-scm.com) to handle version control, rather than [Git](https://git-scm.com).
+
+# Getting Started
+
+Install any missing dependencies. This uses both Homebrew bundle and Ruby's Bundler to install dependencies:
+
+```sh
+bin/setup
+```

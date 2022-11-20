@@ -1,0 +1,41 @@
+#!/usr/bin/env ruby
+
+def fail_with_incorrect_ruby_version
+  $stderr.puts <<~EOSTR.tr("\n", " ")
+    This script is running with an incorrect version of Ruby: it expects
+    #{File.read(".ruby-version").chomp}, but we are running against #{RUBY_VERSION}.
+  EOSTR
+  exit 1
+end
+
+def fail_with_missing_homebrew
+  $stderr.puts <<~EOSTR.tr("\n", " ")
+    Homebrew is not installed: please install it by following the instructions
+    at https://brew.sh/
+  EOSTR
+
+  exit 1
+end
+
+def fail_with_missing_dependencies(path)
+  $stderr.puts <<~EOSTR.tr("\n", " ")
+    Failed to install Rubygems dependencies in #{path}. Please check any error
+    messages above and fix them before running #{$0} again.
+  EOSTR
+
+  exit 1
+end
+
+fail_with_incorrect_ruby_version unless File.read(".ruby-version").include?(RUBY_VERSION)
+
+system("brew bundle")
+fail_with_missing_homebrew unless $?.success?
+
+system("bundle check || bundle install")
+fail_with_missing_dependencies(File.realpath("./Gemfile")) unless $?.success?
+
+Dir.chdir("lets_meet-domain") { system("bundle check || bundle install") }
+fail_with_missing_dependencies(File.realpath("lets_meet-domain/Gemfile")) unless $?.success?
+
+Dir.chdir("lets_meet-hanami") { system("bundle check || bundle install") }
+fail_with_missing_dependencies(File.realpath("lets_meet-hanami/Gemfile")) unless $?.success?

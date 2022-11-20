@@ -1,0 +1,10 @@
+tap "homebrew/bundle"
+tap "homebrew/cask"
+
+brew "circleci"
+brew "dockerize"
+brew "gh"
+brew "git"
+brew "tmux"
+brew "overmind"
+brew "postgresql@15"
